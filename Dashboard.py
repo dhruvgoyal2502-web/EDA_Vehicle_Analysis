@@ -98,7 +98,7 @@ filtered_df = df[mask]
 st.session_state['filtered_df'] = filtered_df
 
 # ====================== MAIN PAGE ======================
-st.title("🚗 Vehicle Parts Billing Dashboard")
+st.title("Vehicle Parts Billing Dashboard")
 st.markdown("""
 Welcome to the Vehicle Parts Billing Dashboard. This application provides insights into 
 billing quantities, customer behavior, and operational patterns. Use the sidebar to filter 
@@ -119,7 +119,7 @@ st.divider()
 col_chart1, col_chart2 = st.columns(2)
 
 with col_chart1:
-    st.markdown("<h3 style='color: #FF4B4B;'>📈 Billing Quantity Over Time</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #FF4B4B;'>Billing Quantity Over Time</h3>", unsafe_allow_html=True)
     if not filtered_df.empty:
         daily_qty = filtered_df.groupby('Billing_Date')['Billing_Quantity'].sum().reset_index()
         fig_time = px.line(daily_qty, x='Billing_Date', y='Billing_Quantity', 
@@ -130,7 +130,7 @@ with col_chart1:
         st.info("No data available for the selected filters.")
 
 with col_chart2:
-    st.markdown("<h3 style='color: #FF4B4B;'>📦 Top Materials by Volume</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #FF4B4B;'>Top Materials by Volume</h3>", unsafe_allow_html=True)
     if not filtered_df.empty:
         mat_qty = filtered_df.groupby('Material_ID')['Billing_Quantity'].sum().nlargest(10).reset_index()
         fig_mat = px.bar(mat_qty, x='Material_ID', y='Billing_Quantity', 
@@ -143,7 +143,7 @@ with col_chart2:
 col_chart3, col_chart4 = st.columns(2)
 
 with col_chart3:
-    st.markdown("<h3 style='color: #FF4B4B;'>🏆 Top Customers by Volume</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #FF4B4B;'>Top Customers by Volume</h3>", unsafe_allow_html=True)
     if not filtered_df.empty:
         cust_qty = filtered_df.groupby('Customer_ID')['Billing_Quantity'].sum().nlargest(10).reset_index()
         fig_cust = px.bar(cust_qty, x='Customer_ID', y='Billing_Quantity', 
@@ -154,7 +154,7 @@ with col_chart3:
         st.info("No data available.")
 
 with col_chart4:
-    st.markdown("<h3 style='color: #FF4B4B;'>📅 Weekday vs Weekend Volume</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #FF4B4B;'>Weekday vs Weekend Volume</h3>", unsafe_allow_html=True)
     if not filtered_df.empty:
         filtered_df['DayType'] = filtered_df['Billing_Date'].dt.dayofweek.apply(lambda x: 'Weekend' if x >= 5 else 'Weekday')
         day_qty = filtered_df.groupby('DayType')['Billing_Quantity'].sum().reset_index()
